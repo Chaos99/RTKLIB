@@ -1794,9 +1794,14 @@ EXPORT int lexioncorr(gtime_t time, const nav_t *nav, const double *pos,
                       const double *azel, double *delay, double *var);
 
 /* application defined functions ---------------------------------------------*/
-extern int showmsg(char *format,...);
-extern void settspan(gtime_t ts, gtime_t te);
-extern void settime(gtime_t time);
+EXPORT void registerShowMsgImpl(int (*showmsgimpl)(char *format,...));
+EXPORT void registerSetSpan(gtime_t ts, gtime_t te);
+EXPORT void registerSetTime(gtime_t time);
+
+int showmsg(char *format,...);
+void settspan(gtime_t ts, gtime_t te);
+void settime(gtime_t time);
+
 
 #ifdef __cplusplus
 }
