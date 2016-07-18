@@ -42,6 +42,10 @@ static const char rcsid[]="$Id: convbin.c,v 1.1 2008/07/17 22:13:04 ttaka Exp $"
 #define PRGNAME   "CONVBIN"
 #define TRACEFILE "convbin.trace"
 
+// global variables ---------------------------------------------------------
+static gtime_t tstart_={0};         // time start for progress-bar
+static gtime_t tend_  ={0};         // time end for progress-bar
+
 /* help text -----------------------------------------------------------------*/
 static const char *help[]={
 "",
@@ -171,8 +175,8 @@ static int convbin(int format, rnxopt_t *opt, const char *ifile, char **file,
 {
     int i,def;
     char work[1024],ofile_[7][1024]={"","","","","","",""},*ofile[7],*p;
-    char *extnav=opt->rnxver<=2.99||opt->navsys==SYS_GPS?"N":"P";
-    char *extlog=format==STRFMT_LEXR?"lex":"sbs";
+    const char *extnav = opt->rnxver<=2.99||opt->navsys==SYS_GPS?"N":"P";
+    const char *extlog = format==STRFMT_LEXR?"lex":"sbs";
     
     def=!file[0]&&!file[1]&&!file[2]&&!file[3]&&!file[4]&&!file[5]&&!file[6];
     
@@ -478,6 +482,26 @@ static int cmdopts(int argc, char **argv, rnxopt_t *opt, char **ifile,
     }
     return format;
 }
+
+// set time span of progress bar --------------------------------------------
+extern void settspan(gtime_t ts, gtime_t te)
+{
+    tstart_=ts;
+    tend_  =te;
+}
+
+// set current time to show progress ----------------------------------------
+extern void settime(gtime_t time)
+{
+    static int i=0;
+    double tt;
+    if (tend_.time!=0&&tstart_.time!=0&&(tt=timediff(tend_,tstart_))>0.0) {
+        //MainForm->Progress->Position=(int)(timediff(time,tstart_)/tt*100.0+0.5);
+        //todo: give console output here
+    }
+    //if (i++%23==0) Application->ProcessMessages();
+}
+
 /* main ----------------------------------------------------------------------*/
 int main(int argc, char **argv)
 {

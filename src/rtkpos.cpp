@@ -1684,7 +1684,7 @@ static int valpos(rtk_t *rtk, const double *v, const double *R, const int *vflg,
 #endif
     double fact=thres*thres;
     int i,stat=1,sat1,sat2,type,freq;
-    char *stype;
+
     
     trace(3,"valpos  : nv=%d thres=%.1f\n",nv,thres);
     
@@ -1695,7 +1695,7 @@ static int valpos(rtk_t *rtk, const double *v, const double *R, const int *vflg,
         sat2=(vflg[i]>> 8)&0xFF;
         type=(vflg[i]>> 4)&0xF;
         freq=vflg[i]&0xF;
-        stype=type==0?"L":(type==1?"L":"C");
+        const char *stype = type==0?"L":(type==1?"L":"C");
         errmsg(rtk,"large residual (sat=%2d-%2d %s%d v=%6.3f sig=%.3f)\n",
               sat1,sat2,stype,freq+1,v[i],SQRT(R[i+i*nv]));
     }
