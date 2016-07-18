@@ -41,12 +41,17 @@
 #else
 #include <pthread.h>
 #endif
+#ifdef QT_DLL
+#include <QtCore/QtGlobal>
+#endif
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #ifdef WIN_DLL
 #define EXPORT __declspec(dllexport) /* for windows DLL */
+#elif QT_DLL
+#define EXPORT Q_DECL_EXPORT
 #else
 #define EXPORT
 #endif
@@ -1316,7 +1321,7 @@ extern const char *formatstrs[];     /* stream format strings */
 extern opt_t sysopts[];              /* system options table */
 
 /* satellites, systems, codes functions --------------------------------------*/
-EXPORT int  satno   (int sys, int prn);
+int  EXPORT satno   (int sys, int prn);
 EXPORT int  satsys  (int sat, int *prn);
 EXPORT int  satid2no(const char *id);
 EXPORT void satno2id(int sat, char *id);

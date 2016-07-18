@@ -6,3 +6,16 @@ Release
 Release_Build
 Debug_Build
 __history
+lib/rtklib/debug
+
+lib/rtklib/release
+
+lib/rtklib/Makefile 
+lib/rtklib/Makefile.Debug 
+lib/rtklib/Makefile.Release
+
+lib/rtklib/object_script.rtklib.Debug 
+lib/rtklib/object_script.rtklib.Release
+
+lib/rtklib/.qmake*
+
