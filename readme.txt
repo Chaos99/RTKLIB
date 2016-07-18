@@ -1,3 +1,17 @@
+Qt_port branch
+
+This aims to port the apps to Qt to make them portable to various operating systems like Linux and Android
+
+At the moment, only the lib itself and the command line tools are modified to compile with Qt Creator
+
+Versions used:
+Qt Creator 4.0.2
+Qt 5.7.0
+MinGW 5.3
+
+
+
+
 #
 #  RTKLIB 2.4.3 Betas
 #
